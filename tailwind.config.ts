@@ -47,6 +47,13 @@ export default {
           DEFAULT: "hsl(var(--card))",
           foreground: "hsl(var(--card-foreground))",
         },
+        jarvis: {
+          glow: "hsl(var(--jarvis-glow))",
+          "glow-soft": "hsl(var(--jarvis-glow-soft))",
+          dark: "hsl(var(--jarvis-dark))",
+          panel: "hsl(var(--jarvis-panel))",
+          grid: "hsl(var(--jarvis-grid))",
+        },
         sidebar: {
           DEFAULT: "hsl(var(--sidebar-background))",
           foreground: "hsl(var(--sidebar-foreground))",
