@@ -89,22 +89,61 @@ const JarvisInterface = () => {
     const command = text.toLowerCase().trim();
     let response = "";
 
-    // Simple command processing
-    if (command.includes("time") || command.includes("what time")) {
+    // Application opening commands
+    if (command.includes("open youtube") || command.includes("launch youtube")) {
+      window.open("https://youtube.com", "_blank");
+      response = "Opening YouTube for you.";
+    } else if (command.includes("open spotify") || command.includes("launch spotify")) {
+      window.open("https://open.spotify.com", "_blank");
+      response = "Opening Spotify Web Player.";
+    } else if (command.includes("open steam") || command.includes("launch steam")) {
+      window.open("https://store.steampowered.com", "_blank");
+      response = "Opening Steam Store. If you have Steam installed, you can use steam:// protocol.";
+    } else if (command.includes("open discord") || command.includes("launch discord")) {
+      window.open("https://discord.com/app", "_blank");
+      response = "Opening Discord Web App.";
+    } else if (command.includes("open netflix") || command.includes("launch netflix")) {
+      window.open("https://netflix.com", "_blank");
+      response = "Opening Netflix.";
+    } else if (command.includes("open gmail") || command.includes("open email")) {
+      window.open("https://gmail.com", "_blank");
+      response = "Opening Gmail.";
+    } else if (command.includes("open github") || command.includes("launch github")) {
+      window.open("https://github.com", "_blank");
+      response = "Opening GitHub.";
+    } else if (command.includes("open google") || (command.includes("open") && command.includes("search"))) {
+      window.open("https://google.com", "_blank");
+      response = "Opening Google Search.";
+    }
+    // System information commands  
+    else if (command.includes("time") || command.includes("what time")) {
       response = `The current time is ${new Date().toLocaleTimeString()}`;
     } else if (command.includes("date") || command.includes("what date")) {
       response = `Today is ${new Date().toLocaleDateString()}`;
     } else if (command.includes("status") || command.includes("system")) {
       response = `System status: CPU at ${systemStatus.cpu.toFixed(1)}%, Memory at ${systemStatus.memory.toFixed(1)}%, Network ${systemStatus.network}`;
-    } else if (command.includes("hello") || command.includes("hi")) {
-      response = "Hello! I am Jarvis, your AI assistant. How can I help you today?";
-    } else if (command.includes("weather")) {
-      response = "I don't have access to weather data yet, but I can help you with other tasks.";
-    } else if (command.includes("search")) {
-      const query = command.replace(/search.*for/, "").trim();
-      response = `I would search for "${query}" but web search is not implemented yet.`;
-    } else {
-      response = "I'm not sure how to handle that command yet. Try asking about time, date, or system status.";
+    } 
+    // Conversational commands
+    else if (command.includes("hello") || command.includes("hi")) {
+      response = "Hello! I am Jarvis, your AI assistant. I can open apps like YouTube, Spotify, Steam, Discord, and more. Just say 'open' followed by the app name.";
+    } else if (command.includes("what can you do") || command.includes("help")) {
+      response = "I can open applications like YouTube, Spotify, Steam, Discord, Netflix, Gmail, and GitHub. I can also tell you the time, date, and system status. Just ask me!";
+    } else if (command.includes("thank you") || command.includes("thanks")) {
+      response = "You're welcome! Always here to help.";
+    }
+    // Web search
+    else if (command.includes("search")) {
+      const searchQuery = command.replace(/.*search\s*(for)?\s*/, "").trim();
+      if (searchQuery) {
+        window.open(`https://google.com/search?q=${encodeURIComponent(searchQuery)}`, "_blank");
+        response = `Searching Google for "${searchQuery}".`;
+      } else {
+        response = "What would you like me to search for?";
+      }
+    } 
+    // Fallback
+    else {
+      response = "I can open YouTube, Spotify, Steam, Discord, Netflix, Gmail, or GitHub. I can also tell you the time, date, system status, or search the web. What would you like me to do?";
     }
 
     // Add command to history
